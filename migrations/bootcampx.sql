@@ -1,10 +1,10 @@
-DROP TABLE IF EXISTS students;
+DROP TABLE IF EXISTS students CASCADE;
 
-DROP TABLE IF EXISTS cohorts;
+DROP TABLE IF EXISTS cohorts CASCADE;
 
-DROP TABLE IF EXISTS assignments;
+DROP TABLE IF EXISTS assignments CASCADE;
 
-DROP TABLE IF EXISTS assignments_submissions;
+DROP TABLE IF EXISTS assignment_submissions CASCADE;
 
 DROP TABLE IF EXISTS teachers;
 
@@ -18,7 +18,7 @@ CREATE TABLE cohorts(
 );
 
 CREATE TABLE students(
-  id serial PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   email VARCHAR(255),
   phone VARCHAR(50),
@@ -26,4 +26,21 @@ CREATE TABLE students(
   start_date DATE,
   end_date DATE,
   cohort_id INT REFERENCES cohorts(id) ON DELETE CASCADE
+);
+
+CREATE TABLE assignments(
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255),
+  content TEXT,
+  "day" INT,
+  chapter SMALLINT,
+  duration INT
+);
+
+CREATE TABLE assignment_submissions(
+  id SERIAL PRIMARY KEY,
+  assignment_id INT REFERENCES assignments(id) ON DELETE CASCADE,
+  student_id INT REFERENCES students(id) ON DELETE CASCADE,
+  duration INT,
+  submission_date DATE
 );
