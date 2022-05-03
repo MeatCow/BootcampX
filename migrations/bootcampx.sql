@@ -6,9 +6,9 @@ DROP TABLE IF EXISTS assignments CASCADE;
 
 DROP TABLE IF EXISTS assignment_submissions CASCADE;
 
-DROP TABLE IF EXISTS teachers;
+DROP TABLE IF EXISTS teachers CASCADE;
 
-DROP TABLE IF EXISTS assistance_requests;
+DROP TABLE IF EXISTS assistance_requests CASCADE;
 
 CREATE TABLE cohorts(
   id SERIAL PRIMARY KEY,
@@ -47,10 +47,10 @@ CREATE TABLE assignment_submissions(
 
 CREATE TABLE teachers(
   id serial PRIMARY KEY,
-  name varchar(255),
+  name varchar(255) NOT NULL,
+  is_active boolean DEFAULT TRUE,
   start_date date,
-  end_date date,
-  is_active boolean
+  end_date date
 );
 
 CREATE TABLE assistance_requests(
