@@ -44,3 +44,23 @@ CREATE TABLE assignment_submissions(
   duration INT,
   submission_date DATE
 );
+
+CREATE TABLE teachers(
+  id serial PRIMARY KEY,
+  name varchar(255),
+  start_date date,
+  end_date date,
+  is_active boolean
+);
+
+CREATE TABLE assistance_requests(
+  id serial PRIMARY KEY,
+  assignment_id INT REFERENCES assignments(id) ON DELETE CASCADE,
+  student_id INT REFERENCES students(id) ON DELETE CASCADE,
+  teacher_id INT REFERENCES teachers(id) ON DELETE CASCADE,
+  created_at TIMESTAMP,
+  started_at TIMESTAMP,
+  completed_at TIMESTAMP,
+  student_feedback TEXT,
+  teacher_feedback TEXT
+);
